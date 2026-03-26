@@ -17,17 +17,10 @@
 	"entrypoints": {
 		"main": [
 			"com.skytendo.novaultlimit.NoVaultLimit"
-		],
-		"client": [
-			"com.skytendo.novaultlimit.NoVaultLimitClient"
 		]
 	},
 	"mixins": [
-		"novaultlimit.mixins.json",
-		{
-			"config": "novaultlimit.client.mixins.json",
-			"environment": "client"
-		}
+		"novaultlimit.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.18.4",

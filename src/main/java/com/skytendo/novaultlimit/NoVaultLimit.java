@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class NoVaultLimit implements ModInitializer {
 	public static final String MOD_ID = "novaultlimit";
-    public static final Logger LOGGER = LoggerFactory.getLogger("novaultlimit");
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override
 	public void onInitialize() {
