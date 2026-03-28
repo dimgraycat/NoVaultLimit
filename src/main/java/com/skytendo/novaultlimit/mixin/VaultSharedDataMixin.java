@@ -1,10 +1,10 @@
 package com.skytendo.novaultlimit.mixin;
 
-import net.minecraft.block.vault.VaultConfig;
-import net.minecraft.block.vault.VaultServerData;
-import net.minecraft.block.vault.VaultSharedData;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.entity.vault.VaultConfig;
+import net.minecraft.world.level.block.entity.vault.VaultServerData;
+import net.minecraft.world.level.block.entity.vault.VaultSharedData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +21,7 @@ public class VaultSharedDataMixin {
     @Shadow
     private Set<UUID> connectedPlayers;
     @Shadow
-    boolean dirty;
+    boolean isDirty;
 
     /**
      * updateConnectedPlayers() injection (HEAD)
@@ -29,18 +29,18 @@ public class VaultSharedDataMixin {
      * Changes the connected players to also contain
      * already rewarded players
      */
-    @Inject(method = "updateConnectedPlayers(" +
-            "Lnet/minecraft/server/world/ServerWorld;" +
-            "Lnet/minecraft/util/math/BlockPos;" +
-            "Lnet/minecraft/block/vault/VaultServerData;" +
-            "Lnet/minecraft/block/vault/VaultConfig;" +
+    @Inject(method = "updateConnectedPlayersWithinRange(" +
+            "Lnet/minecraft/server/level/ServerLevel;" +
+            "Lnet/minecraft/core/BlockPos;" +
+            "Lnet/minecraft/world/level/block/entity/vault/VaultServerData;" +
+            "Lnet/minecraft/world/level/block/entity/vault/VaultConfig;" +
             "D)V", at = @At("TAIL"))
-    void updateConnectedPlayers(ServerWorld world, BlockPos pos, VaultServerData serverData, VaultConfig config, double radius, CallbackInfo ci) {
+    void updateConnectedPlayersWithinRange(ServerLevel world, BlockPos pos, VaultServerData serverData, VaultConfig config, double radius, CallbackInfo ci) {
         Set<UUID> set = new HashSet<>(config.playerDetector()
                 .detect(world, config.entitySelector(), pos, radius, false));
         if (!this.connectedPlayers.equals(set)) {
             this.connectedPlayers = set;
-            this.dirty = true;
+            this.isDirty = true;
         }
     }
 }
