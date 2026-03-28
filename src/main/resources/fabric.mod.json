@@ -17,21 +17,14 @@
 	"entrypoints": {
 		"main": [
 			"com.skytendo.novaultlimit.NoVaultLimit"
-		],
-		"client": [
-			"com.skytendo.novaultlimit.NoVaultLimitClient"
 		]
 	},
 	"mixins": [
-		"novaultlimit.mixins.json",
-		{
-			"config": "novaultlimit.client.mixins.json",
-			"environment": "client"
-		}
+		"novaultlimit.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21",
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

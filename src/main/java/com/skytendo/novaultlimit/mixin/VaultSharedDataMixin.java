@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Mixin(VaultSharedData.class)
 public class VaultSharedDataMixin {
@@ -37,12 +36,11 @@ public class VaultSharedDataMixin {
             "Lnet/minecraft/block/vault/VaultConfig;" +
             "D)V", at = @At("TAIL"))
     void updateConnectedPlayers(ServerWorld world, BlockPos pos, VaultServerData serverData, VaultConfig config, double radius, CallbackInfo ci) {
-        Set<UUID> set = (Set<UUID>) new HashSet<>(config.playerDetector()
+        Set<UUID> set = new HashSet<>(config.playerDetector()
                 .detect(world, config.entitySelector(), pos, radius, false));
         if (!this.connectedPlayers.equals(set)) {
             this.connectedPlayers = set;
             this.dirty = true;
         }
-        return;
     }
 }
