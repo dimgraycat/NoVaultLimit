@@ -5,13 +5,14 @@
 	"name": "novaultlimit",
 	"description": "Removes the only-open-vault-once-per-player mechanic.",
 	"authors": [
-		"Skytendo06"
+		"Skytendo06",
+		"dimgraycat"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/novaultlimit/icon.png",
 	"environment": "*",
 	"entrypoints": {
